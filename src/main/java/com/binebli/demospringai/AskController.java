@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 public class AskController {
     private final BoardGameService boardGameService;
@@ -13,7 +15,7 @@ public class AskController {
     }
 
     @PostMapping(path = "/ask", produces = "application/json")
-    public Answer askQuestion(@RequestBody Question question) {
+    public Answer askQuestion(@Valid @RequestBody Question question) {
         return boardGameService.askQuestion(question);
     }
 
