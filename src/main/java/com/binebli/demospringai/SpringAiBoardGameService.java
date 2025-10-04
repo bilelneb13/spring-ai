@@ -19,8 +19,8 @@ class SpringAiBoardGameService implements BoardGameService {
   //            The game is {game}.
   //            The question is: {question}.
   //            """;
-//  @Value("classpath:/templates/questionPromptTemplate.st")
-//  Resource questionPromptTemplate;
+  //  @Value("classpath:/templates/questionPromptTemplate.st")
+  //  Resource questionPromptTemplate;
   @Value("classpath:/templates/systemPromptTemplate.st")
   Resource systemPromptTemplate;
 
@@ -34,17 +34,16 @@ class SpringAiBoardGameService implements BoardGameService {
   @Override
   public Answer askQuestion(Question question) {
     String gameRules = gameRulesService.getRulesFor(question.gameTitle());
-    String answerText =
-        chatClient
-            .prompt()
-            .system(
-                promptSystemSpec -> promptSystemSpec
+    return chatClient
+        .prompt()
+        .system(
+            promptSystemSpec ->
+                promptSystemSpec
                     .text(systemPromptTemplate)
                     .param("gameTitle", question.gameTitle())
                     .param("rules", gameRules))
-            .user(question.question())
-            .call()
-            .content();
-    return new Answer(question.gameTitle(), answerText);
+        .user(question.question())
+        .call()
+        .entity(Answer.class);
   }
 }
