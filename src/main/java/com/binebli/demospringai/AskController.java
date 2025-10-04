@@ -3,6 +3,7 @@ package com.binebli.demospringai;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 import javax.validation.Valid;
 
@@ -14,8 +15,9 @@ public class AskController {
         this.boardGameService = boardGameService;
     }
 
-    @PostMapping(path = "/ask", produces = "application/json")
-    public Answer askQuestion(@Valid @RequestBody Question question) {
+//    @PostMapping(path = "/ask", produces = "text/event-stream")
+    @PostMapping(path = "/ask", produces = "application/x-ndjson")
+    public Flux<String> askQuestion(@Valid @RequestBody Question question) {
         return boardGameService.askQuestion(question);
     }
 

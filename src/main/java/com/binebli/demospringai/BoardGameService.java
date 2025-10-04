@@ -1,6 +1,8 @@
 package com.binebli.demospringai;
 
 
+import reactor.core.publisher.Flux;
+
 public interface BoardGameService {
-    Answer askQuestion(Question question);
+    Flux<String> askQuestion(Question question);
 }

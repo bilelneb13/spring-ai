@@ -5,6 +5,7 @@ import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
 @Service
 class SpringAiBoardGameService implements BoardGameService {
@@ -32,7 +33,7 @@ class SpringAiBoardGameService implements BoardGameService {
   }
 
   @Override
-  public Answer askQuestion(Question question) {
+  public Flux<String> askQuestion(Question question) {
     String gameRules = gameRulesService.getRulesFor(question.gameTitle());
     return chatClient
         .prompt()
@@ -43,7 +44,7 @@ class SpringAiBoardGameService implements BoardGameService {
                     .param("gameTitle", question.gameTitle())
                     .param("rules", gameRules))
         .user(question.question())
-        .call()
-        .entity(Answer.class);
+        .stream()
+        .content();
   }
 }

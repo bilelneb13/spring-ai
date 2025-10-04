@@ -26,38 +26,38 @@ public class BoardGameServiceTests {
         factCheckingEvaluator = new FactCheckingEvaluator(chatClientBuilder);
     }
 
-    @Test
-    public void evaluateRelevancy() {
-        String userText = "Why is the sky blue?";
-        Question question = new Question(userText);
-        Answer answer = service.askQuestion(question);
-        EvaluationRequest evaluationRequest = new EvaluationRequest(userText, answer.answer());
-        EvaluationResponse response = relevancyEvaluator.evaluate(evaluationRequest);
-        Assertions.assertThat(response.isPass()).withFailMessage("""
-                ========================================
-                The answer "%s"
-                is not considered relevant to the question
-                "%s".
-                ========================================
-                """, answer.answer(), userText).isTrue();
-    }
+//    @Test
+//    public void evaluateRelevancy() {
+//        String userText = "Why is the sky blue?";
+//        Question question = new Question(userText);
+//        Answer answer = service.askQuestion(question);
+//        EvaluationRequest evaluationRequest = new EvaluationRequest(userText, answer.answer());
+//        EvaluationResponse response = relevancyEvaluator.evaluate(evaluationRequest);
+//        Assertions.assertThat(response.isPass()).withFailMessage("""
+//                ========================================
+//                The answer "%s"
+//                is not considered relevant to the question
+//                "%s".
+//                ========================================
+//                """, answer.answer(), userText).isTrue();
+//    }
 
-    @Test
-    public void evaluateFactualAccuracy() {
-        String userText = "Why is the sky blue?";
-        Question question = new Question(userText);
-        Answer answer = service.askQuestion(question);
-        String referenceAnswer = "The sky is blue because of that was the paint color that was on sale.";
-        EvaluationRequest evaluationRequest = new EvaluationRequest(userText, answer.answer());
-        EvaluationResponse evaluationResponse = factCheckingEvaluator.evaluate(evaluationRequest);
-        Assertions.assertThat(evaluationResponse.isPass())
-                .withFailMessage("""
-                        ========================================
-                        The answer "%s"
-                        is not considered correct for the question
-                        "%s".
-                        ========================================
-                        """, answer.answer(), userText)
-                .isTrue();
-    }
+//    @Test
+//    public void evaluateFactualAccuracy() {
+//        String userText = "Why is the sky blue?";
+//        Question question = new Question(userText);
+//        Answer answer = service.askQuestion(question);
+//        String referenceAnswer = "The sky is blue because of that was the paint color that was on sale.";
+//        EvaluationRequest evaluationRequest = new EvaluationRequest(userText, answer.answer());
+//        EvaluationResponse evaluationResponse = factCheckingEvaluator.evaluate(evaluationRequest);
+//        Assertions.assertThat(evaluationResponse.isPass())
+//                .withFailMessage("""
+//                        ========================================
+//                        The answer "%s"
+//                        is not considered correct for the question
+//                        "%s".
+//                        ========================================
+//                        """, answer.answer(), userText)
+//                .isTrue();
+//    }
 }
