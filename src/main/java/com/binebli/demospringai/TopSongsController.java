@@ -1,23 +1,19 @@
 package com.binebli.demospringai;
 
-import javax.validation.Valid;
 
+import java.util.List;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 public class TopSongsController {
+  
   private final ChatClient chatClient;
-
   @Value("classpath:/templates/topSongsPromptTemplate.st")
   Resource topSongsPrompt;
 
