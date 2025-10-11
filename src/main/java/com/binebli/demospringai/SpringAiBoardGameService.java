@@ -34,7 +34,7 @@ class SpringAiBoardGameService implements BoardGameService {
 
   @Override
   public Flux<String> askQuestion(Question question) {
-    String gameRules = gameRulesService.getRulesFor(question.gameTitle());
+    String gameRules = gameRulesService.getRulesFor(question.gameTitle(), question.question());
     return chatClient
         .prompt()
         .system(
