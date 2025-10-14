@@ -46,7 +46,7 @@ public class GameRulesService {
         .collect(Collectors.joining(System.lineSeparator())); // #3
   }
 
-  private String normalizeGameTitle(String gameTitle) { // #4
+  String normalizeGameTitle(String gameTitle) { // #4
     return gameTitle
         .toLowerCase()
         .replace(" ", "_"); //      SearchRequest searchRequest = SearchRequest

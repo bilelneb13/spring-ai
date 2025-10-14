@@ -16,8 +16,8 @@ public class AskController {
     }
 
 //    @PostMapping(path = "/ask", produces = "text/event-stream")
-    @PostMapping(path = "/ask", produces = "application/x-ndjson")
-    public Flux<String> askQuestion(@Valid @RequestBody Question question) {
+    @PostMapping(path = "/ask", produces = "application/json")
+    public Answer askQuestion(@Valid @RequestBody Question question) {
         return boardGameService.askQuestion(question);
     }
 
