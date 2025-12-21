@@ -1,6 +1,7 @@
 package com.binebli.demospringai;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,10 +36,10 @@ class SpringAiBoardGameService implements BoardGameService {
   }
 
   @Override
-  public Answer askQuestion(Question question) {
-    String gameNameMatch = String.format(
-            "gameTitle == '%s'",
-            gameRulesService.normalizeGameTitle(question.gameTitle()));
+  public Answer askQuestion(Question question, String conversationId) {
+    String gameNameMatch =
+        String.format(
+            "gameTitle == '%s'", gameRulesService.normalizeGameTitle(question.gameTitle()));
     return chatClient
         .prompt()
         .system(
@@ -46,8 +47,8 @@ class SpringAiBoardGameService implements BoardGameService {
                 promptSystemSpec
                     .text(systemPromptTemplate)
                     .param("gameTitle", question.gameTitle()))
-            .advisors(advisorSpec ->
-                    advisorSpec.param(FILTER_EXPRESSION, gameNameMatch))
+        .advisors(advisorSpec ->
+                advisorSpec.param(FILTER_EXPRESSION, gameNameMatch).param(ChatMemory.CONVERSATION_ID, conversationId))
         .user(question.question())
         .call()
         .entity(Answer.class);

@@ -15,3 +15,9 @@ logging:
 logbook:
   format:
     style: http
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans
