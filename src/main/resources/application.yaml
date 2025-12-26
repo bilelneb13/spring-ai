@@ -1,16 +1,38 @@
 spring:
-    ai:
-      openai:
-        api-key: ${SPRING_AI_OPENAI_API_KEY}
-        embedding:
-          options:
-            model: text-embedding-3-small
-      vectorstore:
-        qdrant:
-          collection-name: GameRules
+  ai:
+    openai:
+      api-key: ${SPRING_AI_OPENAI_API_KEY}
+      embedding:
+        options:
+          model: text-embedding-3-small
+    vectorstore:
+      qdrant:
+        collection-name: GameRules
+    chat:
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: always
+    #          cassandra:
+#            keyspace: bordgame
+#            messages-column: chat_messages
+#            table: chat_memory
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: myuser
+    password: secret
+#  cassandra:
+#    local-datacenter: dc1
+#  neo4j:
+#    uri: bolt://localhost:7687
+#    authentication:
+#      username: neo4j
+#      password: notverysecret
+
 logging:
   level:
     org.zalando.logbook: TRACE
+    org.apache.cassandra: TRACE
 
 logbook:
   format:
