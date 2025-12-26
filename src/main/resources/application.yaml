@@ -17,10 +17,10 @@ spring:
 #            keyspace: bordgame
 #            messages-column: chat_messages
 #            table: chat_memory
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: myuser
-    password: secret
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/postgres
+#    username: myuser
+#    password: secret
 #  cassandra:
 #    local-datacenter: dc1
 #  neo4j:
